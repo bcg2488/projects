@@ -1,0 +1,30 @@
+b7; T7 begins ID=7 TS=1 State=active.
+r7(A); A is read locked by T7
+w7(A); read lock on A by T7 is upgraded to write lock.
+b8; T8 begins ID=8 TS=2 State=active.
+r8(A); Abort T8 as it is younger than T7 following (wait-die); Transaction T8 is aborted.
+w8(A); Transaction T8 is already committed/aborted.
+w8(B); Transaction T8 is already committed/aborted.
+b9; T9 begins ID=9 TS=3 State=active.
+r9(A); Abort T9 as it is younger than T7 following (wait-die); Transaction T9 is aborted.
+r9(B); Transaction T9 is already committed/aborted.
+w9(B); Transaction T9 is already committed/aborted.
+r9(B); Transaction T9 is already committed/aborted.
+b3; T3 begins ID=3 TS=4 State=active.
+r3(A); Abort T3 as it is younger than T7 following (wait-die); Transaction T3 is aborted.
+b1; T1 begins ID=1 TS=5 State=active.
+r1(Z); Z is read locked by T1
+w3(A); Transaction T3 is already committed/aborted.
+w1(Z); read lock on Z by T1 is upgraded to write lock.
+e9; Transaction T9 cannot be commited (not active or already commited/aborted)
+r3(Y); Transaction T3 is already committed/aborted.
+b2; T2 begins ID=2 TS=6 State=active.
+r2(Z); Abort T2 as it is younger than T1 following (wait-die); Transaction T2 is aborted.
+w2(Z); Transaction T2 is already committed/aborted.
+w3(Y); Transaction T3 is already committed/aborted.
+e3; Transaction T3 cannot be commited (not active or already commited/aborted)
+e2; Transaction T2 cannot be commited (not active or already commited/aborted)
+r8(X); Transaction T8 is already committed/aborted.
+w9(X); Transaction T9 is already committed/aborted.
+e8; Transaction T8 cannot be commited (not active or already commited/aborted)
+e9; Transaction T9 cannot be commited (not active or already commited/aborted)

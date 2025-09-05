@@ -1,0 +1,21 @@
+b2; T2 begins ID=2 TS=1 State=active.
+r2(Z); Z is read locked by T2
+w2(Z); read lock on Z by T2 is upgraded to write lock.
+b3; T3 begins ID=3 TS=2 State=active.
+r3(A); A is read locked by T3
+r2(A); A is read locked by T2
+T2(A); T2 is waiting on T{3}
+b4; T4 begins ID=4 TS=3 State=active.
+r4(B); B is read locked by T4
+b1; T1 begins ID=1 TS=4 State=active.
+r1(Y); Y is read locked by T1
+w1(Y); read lock on Y by T1 is upgraded to write lock.
+r1(Z); Abort T1 as it is younger than T2 following (wait-die); Transaction T1 is aborted.
+e3; Transaction T3 is committed.
+e1; Transaction T1 cannot be commited (not active or already commited/aborted)
+r2(Y); Y is read locked by T2
+r2(X); X is read locked by T2
+r2(B); B is read locked by T2
+w2(X); read lock on X by T2 is upgraded to write lock.
+T2(B); T2 is waiting on T{4}
+e2; Transaction T2 is committed.
