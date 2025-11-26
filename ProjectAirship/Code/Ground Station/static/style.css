@@ -1,0 +1,124 @@
+/* ===== BASE ===== */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1e1e1e; /* dark gray background */
+    color: #eee;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+h1 {
+    margin-top: 20px;
+}
+
+/* ===== GRID LAYOUT ===== */
+.main-container {
+    display: grid;
+    grid-template-columns: 350px 1fr 350px;
+    gap: 20px;
+    width: 95%;
+    max-width: 1600px;
+    margin: 30px auto;
+}
+
+/* ===== PANEL STYLING ===== */
+.panel {
+    background: #2c2c2c;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #111;
+    margin-bottom: 20px;
+}
+
+/* ===== BUTTONS ===== */
+button {
+    padding: 12px 18px;
+    font-size: 16px;
+    border: 2px solid #555;
+    border-radius: 8px;
+    background-color: #3a3a3a;
+    color: #fff;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+/* Green highlight when pressed */
+button.active {
+    background-color: #238636 !important;
+    border-color: #2ea043 !important;
+    box-shadow: 0 0 12px #2ea043;
+    transform: translateY(3px);
+}
+
+/* Start button base color */
+.start {
+    background-color: #1e5128;
+    color: white;
+}
+.start.active {
+    background-color: #3fa34d !important;
+}
+
+/* Red STOP button */
+#stop-btn {
+    background-color: #7a1a1a;
+    color: white;
+    border-color: #aa2e2e;
+}
+#stop-btn.active {
+    background-color: #c62828 !important;
+    border-color: #ff4d4d !important;
+    box-shadow: 0 0 12px #ff0000;
+    transform: translateY(3px);
+}
+
+/* Movement control grid */
+.main-controls {
+    display: grid;
+    grid-template-columns: 90px 90px 90px;
+    grid-template-rows: 90px 90px 90px;
+    gap: 10px;
+    justify-content: center;
+}
+
+.spacer {
+    width: 90px;
+    height: 90px;
+}
+
+/* PID switch */
+.switch {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+/* ===== CENTER PANEL ===== */
+.center-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Map + Video Sizing */
+#map {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    border: 2px solid #333;
+}
+
+.video img {
+    width: 520px;
+    height: 350px;
+    border-radius: 10px;
+    border: 2px solid #333;
+}
+
+/* ===== RIGHT PANEL (Telemetry) ===== */
+.right-panel .panel {
+    padding: 15px;
+    text-align: left;
+}

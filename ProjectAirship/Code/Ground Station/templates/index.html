@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Airship Ground Station</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.polylinedecorator/1.7.0/leaflet.polylineDecorator.min.js"></script>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+</head>
+
+<body>
+    <h1>Airship Ground Station</h1>
+
+    <!-- ===== MAIN GRID LAYOUT (3 columns) ===== -->
+    <div class="main-container">
+
+        <!-- ===== LEFT PANEL ===== -->
+        <div class="left-panel">
+
+            <!-- Start / Stop -->
+            <div class="panel start-stop-controls">
+                <h3>Start / Stop</h3>
+                <button id="start" class="start">Start</button>
+                <button id="stop-btn" class="stop-btn">Stop</button>
+            </div>
+
+            <!-- Movement Controls -->
+            <div class="panel">
+                <h3>Airship Control</h3>
+
+                <div class="main-controls">
+                    <div class="spacer"></div>
+                    <button id="forward">Forward</button>
+                    <div class="spacer"></div>
+
+                    <button id="left">Left</button>
+                    <div class="spacer"></div>
+                    <button id="right">Right</button>
+
+                    <div class="spacer"></div>
+                    <button id="up">Up</button>
+                    <div class="spacer"></div>
+                    <div class="spacer"></div>
+                    <button id="down">Down</button>
+                </div>
+
+                <label class="switch">
+                    <input type="checkbox" id="pidSwitch">
+                    <span class="slider"></span> PID Control
+                </label>
+            </div>
+
+            <!-- Manual Controls -->
+            <div class="panel">
+                <h3>Manual Controls</h3>
+
+                <label>Left Motor Strength:
+                    <input type="number" id="frontleft-manual" min="0" max="100">
+                    <span id="frontleft-value">0</span>
+                </label><br>
+
+                <label>Right Motor Strength:
+                    <input type="number" id="frontright-manual" min="0" max="100">
+                    <span id="frontright-value">0</span>
+                </label><br>
+
+                <label>Back Motor Strength:
+                    <input type="range" id="back-manual" min="0" max="100" value="0">
+                    <span id="back-value">0</span>
+                </label><br>
+
+                <label>Target Altitude:
+                    <input type="number" id="Taltitude-manual" step="0.1">
+                    <span id="Taltitude-value">0</span>
+                </label><br>
+
+                <button id="send-manual">Send Command</button>
+            </div>
+        </div>
+
+        <!-- ===== CENTER PANEL ===== -->
+        <div class="center-panel">
+            <div class="video">
+                <img src="http://192.168.4.1:5000/video_feed" />
+            </div>
+
+            <div id="map"></div>
+
+            <button onclick="sendWaypoints()">Send Waypoints to Blimp</button>
+        </div>
+
+        <!-- ===== RIGHT PANEL (Telemetry) ===== -->
+        <div class="right-panel">
+            <div class="panel blimp_data">
+                <h3>Blimp Telemetry</h3>
+
+                <p>Battery: <span id="battery"></span>%</p>
+                <p>Current: <span id="current"></span> A</p>
+                <p>Heading: <span id="heading"></span>° | IMU: <span id="imu-heading"></span>°</p>
+                <p>LIDAR Distance: <span id="distance"></span> m</p>
+                <p>GPS: lat <span id="lat"></span>, lon <span id="lon"></span>, alt <span id="alt"></span> m</p>
+                <p>Speed: <span id="speed"></span> m/s</p>
+                <p>Climb: <span id="climb"></span> m/s</p>
+                <p>Back Motors: <span id="back-motors"></span>%</p>
+                <p>Left: <span id="left-motor"></span>% | Right: <span id="right-motor"></span>%</p>
+                <p>Start Flag: <span id="startFlag"></span> | Stop Flag: <span id="stop"></span></p>
+                <p>Ultrasonic Altitude: <span id="ultrasonic-altitude"></span> cm</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
